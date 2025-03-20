@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Påmelding - 1v1 Fotballturnering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Meld deg på 1v1 Fotballturnering</h2>
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Ditt navn" required>
+            <input type="email" id="email" placeholder="E-post" required>
+            <input type="tel" id="phone" placeholder="Telefonnummer" required>
+            <button type="submit">Meld deg på</button>
+        </form>
+        <p id="confirmation" style="display: none; color: green;">Påmelding mottatt!</p>
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            
+            let response = await fetch("https://script.google.com/macros/s/AKfycbwpYnRhb07Ly2w-z5sLzwatGOYiIxZDs94aEoLxiGk3JZGBNffM29OpMvG9Gw9mUN3QQQ/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone })
+            });
+            
+            if (response.ok) {
+                document.getElementById("confirmation").style.display = "block";
+                document.getElementById("signupForm").reset();
+            }
+        });
+    </script>
+</body>
+</html>
